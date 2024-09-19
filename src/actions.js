@@ -40,6 +40,7 @@ const MEDICAL_SERVICE_FULL_PROJECTION = (mm) => [
   "validityTo",
   "level",
   "category",
+  "covered"
 ];
 
 const MEDICAL_ITEM_FULL_PROJECTION = (mm) => [
@@ -57,6 +58,7 @@ const MEDICAL_ITEM_FULL_PROJECTION = (mm) => [
   "validityFrom",
   "validityTo",
   "package",
+  "covered"
 ];
 
 export function formatMedicalItemOrServiceGQL(mm, ms) {
