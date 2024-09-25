@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { injectIntl } from "react-intl";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { Grid, Checkbox, FormControlLabel } from "@material-ui/core";
 
 import {
   AmountInput,
@@ -14,6 +14,7 @@ import {
   ValidatedTextInput,
   withHistory,
   withModulesManager,
+  formatMessage
 } from "@openimis/fe-core";
 import { medicalItemsValidationCheck, medicalItemsValidationClear, medicalItemsSetValid } from "../actions";
 import { ITEM_CODE_MAX_LENGTH } from "../constants";
@@ -33,7 +34,7 @@ class MedicalItemMasterPanel extends FormPanel {
     return shouldValidate;
   }
   render() {
-    const { classes, edited, readOnly, isItemValid, isItemValidating, itemValidationError } = this.props;
+    const { intl, classes, edited, readOnly, isItemValid, isItemValidating, itemValidationError } = this.props;
     return (
       <>
         <Grid container className={classes.item}>
@@ -126,6 +127,19 @@ class MedicalItemMasterPanel extends FormPanel {
               readOnly={Boolean(edited.id) || readOnly}
               value={edited ? edited.price : ""}
               onChange={(p) => this.updateAttribute("price", p)}
+            />
+          </Grid>
+          <Grid item sx={3} className={classes.item}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={!!edited && !!edited.covered}
+                  disabled={Boolean(edited.id) || readOnly}
+                  onChange={(v) => this.updateAttribute("covered", !edited || !edited.covered)}
+                />
+              }
+              label={formatMessage(intl, "medical", "covered")}
             />
           </Grid>
         </Grid>
